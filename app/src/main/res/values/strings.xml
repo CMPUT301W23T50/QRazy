@@ -6,4 +6,6 @@
     <string name="user_profile_button_text">USER PROFILE</string>
     <string name="user_leaderboard_button_text">USER LEADERBOARD</string>
     <string name="qr_leaderboard_button_text">QR LEADERBOARD</string>
+    <string name="back_button_text">Back button</string>
+    <string name="scan_button_description">Scan QR code</string>
 </resources>
