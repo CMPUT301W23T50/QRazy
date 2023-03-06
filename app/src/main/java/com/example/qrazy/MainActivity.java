@@ -43,7 +43,9 @@ public class MainActivity extends AppCompatActivity {
      * @param button the button which can be clicked to switch to a new activity
      * @param activityClass the activity to switch to
      */
-    private void switchToActivity(Button button, Class activityClass) {
+    protected void switchToActivity(Button button, Class activityClass) {
+        // ignore the warning "Raw use of parameterized class 'Class'" since there's no other way
+        // to implement this
         button.setOnClickListener(view -> {
             Intent intent = new Intent(view.getContext(), activityClass);
             startActivity(intent);
