@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">QRazy</string>
+    <string name="scan_qr_button_text">SCAN QR-CODE</string>
+    <string name="home_title_text">QRAZY</string>
+    <string name="map_button_text">MAP</string>
+    <string name="user_profile_button_text">USER PROFILE</string>
+    <string name="user_leaderboard_button_text">USER LEADERBOARD</string>
+    <string name="qr_leaderboard_button_text">QR LEADERBOARD</string>
+    <string name="back_button_text">Back button</string>
+    <string name="scan_button_description">Scan QR code</string>
 </resources>
