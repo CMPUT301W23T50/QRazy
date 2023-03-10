@@ -13,12 +13,13 @@ import org.apache.commons.codec.digest.DigestUtils;
  * Class to represent qr codes
  */
 public class QRCode {
+    //TODO<- Controller for comments and db connectivity
     private String content;
     private String name;
     private int score;
     private String visualRep;
     private Pair<Double, Double> location;  // <longitude, latitude>
-    private HashMap<String, String> comments;  // <userID, comment>
+    private HashMap<String, String> comments = new HashMap<>();  // <userID, comment>
 
     public QRCode(String content) {
         this.content = content;
