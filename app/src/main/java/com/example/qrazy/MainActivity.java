@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity{
             if (result.getContents() != null) {
                 // user didn't cancel scanning / adding a photo
                 this.scanResult = result.getContents();
-                Toast.makeText(getBaseContext(), result.getContents(), Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -114,6 +113,7 @@ public class MainActivity extends AppCompatActivity{
             // if user adds a qr code, go to the scan code activity
             if (scanResult != null) {
                 Intent intent = new Intent(view.getContext(), ScanCodeActivity.class);
+                intent.putExtra("activityName","home");
                 startActivity(intent);
             }
         });
@@ -129,6 +129,7 @@ public class MainActivity extends AppCompatActivity{
         // to implement this
         button.setOnClickListener(view -> {
             Intent intent = new Intent(view.getContext(), activityClass);
+            intent.putExtra("activityName","home");
             startActivity(intent);
         });
     }

@@ -34,6 +34,7 @@ android {
 
 }
 
+
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
@@ -66,5 +67,8 @@ dependencies {
 
     // ZXing library allows for scanning codes
     implementation "com.journeyapps:zxing-android-embedded:4.1.0"
+
+    // open street maps api
+    implementation 'org.osmdroid:osmdroid-android:6.1.14'
 
 }
