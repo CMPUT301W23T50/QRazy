@@ -21,11 +21,17 @@ import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-public class MainActivity extends AppCompatActivity{
+import org.apache.commons.codec.digest.DigestUtils;
 
+public class MainActivity extends AppCompatActivity{
+    private Player player = new Player("example", "s8765");
+    private PlayerController playerController = new PlayerController(player);
     // result from qr scan
     private String scanResult;
 
+    public String calculateHash(String content) {
+        return DigestUtils.sha256Hex(content);
+    }
     ActivityResultLauncher<PickVisualMediaRequest> pickImage =
             registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
                 if (uri != null) {
@@ -79,6 +85,9 @@ public class MainActivity extends AppCompatActivity{
                 // user didn't cancel scanning / adding a photo
                 this.scanResult = result.getContents();
                 Toast.makeText(getBaseContext(), result.getContents(), Toast.LENGTH_LONG).show();
+
+                QRCode qr = new QRCode(calculateHash(scanResult));
+                playerController.addQR(qr);
             }
         }
     }

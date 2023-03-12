@@ -14,22 +14,21 @@ import org.apache.commons.codec.digest.DigestUtils;
  */
 public class QRCode {
     //TODO<- Controller for comments and db connectivity
-    private String content;
+    private String hash;
     private String name;
     private int score;
     private String visualRep;
     private Pair<Double, Double> location;  // <longitude, latitude>
     private HashMap<String, String> comments = new HashMap<>();  // <userID, comment>
 
-    public QRCode(String content) {
-        this.content = content;
+    public QRCode(String hash) {
+        this.hash = hash;
         this.score = calculateScore();
         this.visualRep = generateVisualRep();
     }
 
     public int calculateScore() {
         int score = 0;
-        String hash = calculateHash();
         // regex global search for substrings of repeating chars AND all zeroes
         Pattern repeat = Pattern.compile("(.)(\\1+)|(0)");
         Matcher matcher = repeat.matcher(hash);
@@ -60,10 +59,6 @@ public class QRCode {
         return score;
     }
 
-    public String calculateHash() {
-        return DigestUtils.sha256Hex(content);
-    }
-
     public String generateVisualRep() {
         // for the unique visual representation
         // TODO: implement after halfway
@@ -71,9 +66,6 @@ public class QRCode {
     }
 
     // getters
-    public String getContent() {
-        return content;
-    }
     public int getScore() {
         return score;
     }
@@ -81,9 +73,6 @@ public class QRCode {
         return visualRep;
     }
     // setters
-    public void setContent(String content) {
-        this.content = content;
-    }
     public void setScore(int score) {
         this.score = score;
     }
