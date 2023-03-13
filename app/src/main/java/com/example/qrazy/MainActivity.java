@@ -19,7 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.google.zxing.integration.android.IntentIntegrator;Ryan
+import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import org.apache.commons.codec.digest.DigestUtils;
 

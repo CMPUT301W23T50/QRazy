@@ -10,8 +10,6 @@ import java.util.HashMap;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
-import org.apache.commons.codec.digest.DigestUtils;
-
 
 /**
  * Class to represent qr codes
@@ -98,7 +96,6 @@ public class QRCode implements Serializable {
 
     public String getName() { return name; }
     public Pair<Double, Double> getLocation() { return location; }
-    public String getContent() { return content; }
 
     private void setVisualRep(String visualRep) {
         this.visualRep = visualRep;
