@@ -28,6 +28,10 @@ public class PlayerController implements Serializable {
         player.getQRArray().add(qr);
     }
 
+    public void removeQR(int index) {
+        player.getQRArray().remove(index);
+    }
+
     // Calculates the total score and updates player object
     public int updateTotalScore() {
         int total = 0;

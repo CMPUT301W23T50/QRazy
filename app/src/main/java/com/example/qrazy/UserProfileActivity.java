@@ -6,11 +6,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class UserProfileActivity extends AppCompatActivity{
 
+    Player player;
+    PlayerController playerController;
+
+    public void removeQR(int index) {
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +43,7 @@ public class UserProfileActivity extends AppCompatActivity{
 
         RecyclerView qr_recycler = findViewById(R.id.qr_recycler);
         qr_recycler.setLayoutManager(new LinearLayoutManager(this));
-        qr_recycler.setAdapter(new QRAdapter(getApplicationContext(), player.getQRArray()));
+        qr_recycler.setAdapter(new QRAdapter(getApplicationContext(), player.getQRArray(), playerController));
+
     }
 }
