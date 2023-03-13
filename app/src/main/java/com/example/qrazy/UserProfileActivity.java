@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class UserProfileActivity extends AppCompatActivity{
 
     Player player;
@@ -49,9 +51,16 @@ public class UserProfileActivity extends AppCompatActivity{
         totalTxt.append(String.valueOf(player.getTotal()));
         scannedTxt.append(String.valueOf(player.getNumScanned()));
 
-        RecyclerView qr_recycler = findViewById(R.id.searchview_frag_recycler);
-        qr_recycler.setLayoutManager(new LinearLayoutManager(this));
-        qr_recycler.setAdapter(new QRAdapter(getApplicationContext(), player.getQRArray(), playerController));
+        //RecyclerView qr_recycler = findViewById(R.id.searchview_frag_recycler);
+        //qr_recycler.setLayoutManager(new LinearLayoutManager(this));
+        //qr_recycler.setAdapter(new QRAdapter(getApplicationContext(), player.getQRArray(), playerController));
 
+        // since we have a SearchViewFragment, we want to show that as the search + recycler view
+        // functionality
+        SearchViewFragment searchFrag = SearchViewFragment.newInstanceQR(player.getQRArray());
+        androidx.fragment.app.FragmentManager fragMan = getSupportFragmentManager();
+        androidx.fragment.app.FragmentTransaction fragTrans = fragMan.beginTransaction();
+        fragTrans.replace(R.id.user_qr_frame,searchFrag,"SearchFrag");
+        fragTrans.commit();
     }
 }

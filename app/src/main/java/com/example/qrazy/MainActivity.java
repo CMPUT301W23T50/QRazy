@@ -63,6 +63,9 @@ public class MainActivity extends AppCompatActivity{
         Button userLeaderboardButton = findViewById(R.id.user_leaderboard_button);
         Button qrLeaderboardButton = findViewById(R.id.qr_leaderboard_button);
 
+        // add dummy qr codes to the user
+        addDummyQR();
+
         // this allows user to either scan a code or add from gallery
         addCode(scanQRButton);
 
