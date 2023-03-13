@@ -2,6 +2,8 @@ package com.example.qrazy;
 
 import android.util.Log;
 import android.util.Pair;
+
+import java.io.Serializable;
 import java.util.HashMap;
 
 import java.util.regex.Pattern;
@@ -12,7 +14,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 /**
  * Class to represent qr codes
  */
-public class QRCode {
+public class QRCode implements Serializable {
     //TODO<- Controller for comments and db connectivity
     private String hash;
     private String name;
@@ -66,6 +68,9 @@ public class QRCode {
     }
 
     // getters
+    public String getHash() {
+        return hash;
+    }
     public int getScore() {
         return score;
     }

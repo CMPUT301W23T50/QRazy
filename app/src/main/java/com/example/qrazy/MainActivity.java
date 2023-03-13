@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,8 +25,9 @@ import com.google.zxing.integration.android.IntentResult;
 import org.apache.commons.codec.digest.DigestUtils;
 
 public class MainActivity extends AppCompatActivity{
-    private Player player = new Player("example", "s8765");
-    private PlayerController playerController = new PlayerController(player);
+     Player player = new Player("User#12345", "s8765");
+     PlayerController playerController = new PlayerController(player);
+
     // result from qr scan
     private String scanResult;
 
@@ -56,7 +58,6 @@ public class MainActivity extends AppCompatActivity{
         // this allows user to either scan a code or add from gallery
         addCode(scanQRButton);
 
-
         // switch to map activity on button press
         switchToActivity(mapButton, MapActivity.class);
 
@@ -84,10 +85,12 @@ public class MainActivity extends AppCompatActivity{
             if (result.getContents() != null) {
                 // user didn't cancel scanning / adding a photo
                 this.scanResult = result.getContents();
-                Toast.makeText(getBaseContext(), result.getContents(), Toast.LENGTH_LONG).show();
 
+                // add qr code
                 QRCode qr = new QRCode(calculateHash(scanResult));
                 playerController.addQR(qr);
+
+                Toast.makeText(getBaseContext(), player.getQRArray().get(0).getHash(), Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -137,7 +140,10 @@ public class MainActivity extends AppCompatActivity{
         // ignore the warning "Raw use of parameterized class 'Class'" since there's no other way
         // to implement this
         button.setOnClickListener(view -> {
-            Intent intent = new Intent(view.getContext(), activityClass);
+            Intent intent = new Intent(this, activityClass);
+            intent.putExtra("player", player);
+            intent.putExtra("playerController", playerController);
+
             startActivity(intent);
         });
     }
