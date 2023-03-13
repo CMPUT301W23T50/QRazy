@@ -59,7 +59,7 @@ public class MapActivity extends AppCompatActivity {
         String last_act = getIntent().getStringExtra("activityName");
 
         // create the header
-        CustomHeader head = findViewById(R.id.header_qr_fragment);
+        CustomHeader head = findViewById(R.id.header_user_leaderboard);
         head.initializeHead("Map", "Back to " + last_act);
         // set listener for back button in the header
         // TODO: button needs to be clicked multiple times to work, need to fix that

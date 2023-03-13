@@ -32,8 +32,6 @@ import com.google.common.util.concurrent.ListenableFuture;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-import org.apache.commons.codec.digest.DigestUtils;
-
 import java.util.Date;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -75,7 +73,7 @@ public class ScanCodeActivity extends AppCompatActivity {
         String last_act = getIntent().getStringExtra("activityName");
 
         // create the header
-        CustomHeader head = findViewById(R.id.header_qr_fragment);
+        CustomHeader head = findViewById(R.id.header_user_leaderboard);
         head.initializeHead("Scanner", "Back to " + last_act);
         // set listener for back button in the header
         head.back_button.setOnClickListener(view -> {

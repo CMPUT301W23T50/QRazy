@@ -1,8 +1,12 @@
 package com.example.qrazy;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 import android.util.Pair;
+
+import androidx.annotation.NonNull;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -14,7 +18,7 @@ import java.util.regex.Matcher;
 /**
  * Class to represent qr codes
  */
-public class QRCode implements Serializable {
+public class QRCode implements Parcelable {
     //TODO<- Controller for comments and db connectivity
     private String hash;
     private String name;
@@ -33,6 +37,25 @@ public class QRCode implements Serializable {
         this.score = calculateScore();
         this.visualRep = generateVisualRep();
     }
+
+    protected QRCode(Parcel in) {
+        hash = in.readString();
+        name = in.readString();
+        score = in.readInt();
+        visualRep = in.readString();
+    }
+
+    public static final Creator<QRCode> CREATOR = new Creator<QRCode>() {
+        @Override
+        public QRCode createFromParcel(Parcel in) {
+            return new QRCode(in);
+        }
+
+        @Override
+        public QRCode[] newArray(int size) {
+            return new QRCode[size];
+        }
+    };
 
     /** Calculates the score from the hash value
      * @return score int
@@ -95,6 +118,8 @@ public class QRCode implements Serializable {
     }
 
     public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
     public Pair<Double, Double> getLocation() { return location; }
 
     private void setVisualRep(String visualRep) {
@@ -102,4 +127,16 @@ public class QRCode implements Serializable {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeString(hash);
+        parcel.writeString(name);
+        parcel.writeInt(score);
+        parcel.writeString(visualRep);
+    }
 }

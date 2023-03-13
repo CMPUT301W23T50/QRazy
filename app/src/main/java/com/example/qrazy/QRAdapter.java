@@ -22,6 +22,17 @@ public class QRAdapter extends RecyclerView.Adapter<QRViewHolder> {
         this.playerController = playerController;
     }
 
+    /**
+     * Second constructor, allowing the adapter to be used without a player controller
+     * Useful for the QRLeaderboard
+     * @param context context of the adapter
+     * @param QRArray ArrayList of QR codes
+     */
+    public QRAdapter(Context context, ArrayList<QRCode> QRArray) {
+        this.context = context;
+        this.QRArray = QRArray;
+    }
+
     @NonNull
     @Override
     public QRViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
