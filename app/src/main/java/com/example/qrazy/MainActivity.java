@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity{
             // if user adds a qr code, go to the scan code activity
             if (scanResult != null) {
                 Intent intent = new Intent(view.getContext(), ScanCodeActivity.class);
-                intent.putExtra("activityName","home");
+                intent.putExtra("prevActivity","home");
                 startActivity(intent);
             }
         });
@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity{
             Intent intent = new Intent(this, activityClass);
             intent.putExtra("player", player);
             intent.putExtra("playerController", playerController);
-            intent.putExtra("activityName","home");
+            intent.putExtra("prevActivity","home");
     
             startActivity(intent);
         });

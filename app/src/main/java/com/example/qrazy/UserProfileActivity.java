@@ -34,8 +34,8 @@ public class UserProfileActivity extends AppCompatActivity{
 
 
         Intent it = getIntent();
-        Player player = (Player) it.getSerializableExtra("player");
-        PlayerController playerController = (PlayerController) it.getSerializableExtra("playerController");
+        Player player = (Player) it.getParcelableExtra("player");
+        PlayerController playerController = (PlayerController) it.getParcelableExtra("playerController");
 
         // refactor with an array/hashmap later
         TextView usernameTxt =(TextView) findViewById(R.id.username);

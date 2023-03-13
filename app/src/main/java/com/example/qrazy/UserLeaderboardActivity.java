@@ -19,7 +19,7 @@ public class UserLeaderboardActivity extends AppCompatActivity {
 
         // create the header
         CustomHeader head = findViewById(R.id.header_user_leaderboard);
-        head.initializeHead("QR Leaderboard", "Back to " + last_act);
+        head.initializeHead("User Leaderboard", "Back to " + last_act);
         // set listener for back button in the header
         head.back_button.setOnClickListener(view -> { finish(); });
 
