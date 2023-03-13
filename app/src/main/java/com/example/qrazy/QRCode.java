@@ -16,8 +16,9 @@ public class QRCode implements Parcelable {
 
     private String content;
     private String name;
-    private int score;
-    private Pair<Double, Double> location;  // <longitude, latitude>
+    private int score = 0;
+    // initializing to default values, so we don't have to check if the location contains null
+    private Pair<Double, Double> location = new Pair<Double, Double>(0.0,0.0);  // <longitude, latitude>
     private HashMap<String, String> comments;  // <userID, comment>
 
     public QRCode(String content) {
@@ -50,6 +51,10 @@ public class QRCode implements Parcelable {
         parcel.writeString(content);
     }
 
+    /**
+     * Function to update the score of this QR code
+     * @return the new, updated score of this instance of a QR code
+     */
     public int updateScore() {
 
         int score = 0;
@@ -78,4 +83,8 @@ public class QRCode implements Parcelable {
     public void setScore(int score) {
         this.score = score;
     }
+    public String getName() { return name; }
+    public Pair<Double, Double> getLocation() { return location; }
+    public String getContent() { return content; }
+
 }

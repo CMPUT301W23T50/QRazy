@@ -37,7 +37,7 @@
         app:srcCompat="@android:drawable/ic_menu_camera" />
 
     <com.example.qrazy.CustomHeader
-        android:id="@+id/header_qr_leaderboard"
+        android:id="@+id/header_qr_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent" />

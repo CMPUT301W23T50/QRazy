@@ -21,6 +21,14 @@ import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+/**
+ * MainActivity is an activity which is the opening screen to the app (not including the login
+ * screen, which the user should only have to see once)
+ * This activity has buttons that lead the user to other activities within the app
+ * As well, the ZXing library opens the scanning activity here, because this prevents the app from
+ * switching to the ScanCodeActivity before getting permission to use the device's camera
+ * TODO: move ZXing to a fragment, so that it can be used outside of MainActivity
+ */
 public class MainActivity extends AppCompatActivity{
 
     // result from qr scan
