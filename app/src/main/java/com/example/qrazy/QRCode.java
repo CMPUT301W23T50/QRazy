@@ -15,7 +15,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  * Class to represent qr codes
- * Implements Serializable so that a QRCode can be passed between activities with intent.setExtra
  */
 public class QRCode implements Serializable {
     //TODO<- Controller for comments and db connectivity
@@ -29,47 +28,21 @@ public class QRCode implements Serializable {
     private HashMap<String, String> comments = new HashMap<>();  // <userID, comment>
 
 
+    // constructor
+
     public QRCode(String hash) {
         this.hash = hash;
         this.score = calculateScore();
         this.visualRep = generateVisualRep();
     }
 
-
-    protected QRCode(Parcel in) {
-        this.content = in.readString();
-    }
-
-    public static final Creator<QRCode> CREATOR = new Creator<QRCode>() {
-        @Override
-        public QRCode createFromParcel(Parcel in) {
-            return new QRCode(in);
-        }
-
-        @Override
-        public QRCode[] newArray(int size) {
-            return new QRCode[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int number) {
-        parcel.writeString(content);
-    }
-
-    /**
-     * Function to calculate the score of this QR code
-     * @return the score of this instance of a QR code
+    /** Calculates the score from the hash value
+     * @return score int
      */
     public int calculateScore() {
 
         int score = 0;
-        // regex global search for substrings of repeating chars AND all zeroes
+        // regex global search to get substrs of repeating chars AND all zeroes
         Pattern repeat = Pattern.compile("(.)(\\1+)|(0)");
         Matcher matcher = repeat.matcher(hash);
         while(matcher.find()) {
@@ -99,6 +72,9 @@ public class QRCode implements Serializable {
         return score;
     }
 
+    /** Generate a unique visual representation of the qr code
+     * @return String representation of qr as a string
+     */
     public String generateVisualRep() {
         // for the unique visual representation
         // TODO: implement after halfway
