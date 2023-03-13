@@ -69,7 +69,7 @@ public class QRCodeFragment extends Fragment {
         TextView qr_location = view.findViewById(R.id.qr_location_frag);
 
         // change the text to match clicked QR code
-        qr_name.setText(qrCode.getContent());
+        qr_name.setText(qrCode.getName());
         // only change location text if a location exists in the QR code
         qr_location.setText(qrCode.getLocation().toString());
 

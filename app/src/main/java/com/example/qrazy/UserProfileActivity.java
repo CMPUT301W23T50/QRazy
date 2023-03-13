@@ -6,11 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class UserProfileActivity extends AppCompatActivity{
 
@@ -24,6 +20,18 @@ public class UserProfileActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+
+        // get the name of the previous activity
+        String last_act = getIntent().getStringExtra("prevActivity");
+
+        // create the header
+        CustomHeader head = findViewById(R.id.header_user_leaderboard);
+        head.initializeHead("User Profile", "Back to " + last_act);
+        // set listener for back button in the header
+        head.back_button.setOnClickListener(view -> {
+            finish();
+        });
+
 
         Intent it = getIntent();
         Player player = (Player) it.getSerializableExtra("player");
@@ -41,7 +49,7 @@ public class UserProfileActivity extends AppCompatActivity{
         totalTxt.append(String.valueOf(player.getTotal()));
         scannedTxt.append(String.valueOf(player.getNumScanned()));
 
-        RecyclerView qr_recycler = findViewById(R.id.qr_recycler);
+        RecyclerView qr_recycler = findViewById(R.id.searchview_frag_recycler);
         qr_recycler.setLayoutManager(new LinearLayoutManager(this));
         qr_recycler.setAdapter(new QRAdapter(getApplicationContext(), player.getQRArray(), playerController));
 

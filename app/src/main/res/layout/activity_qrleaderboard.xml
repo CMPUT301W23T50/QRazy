@@ -8,7 +8,7 @@
     tools:context=".QRLeaderboardActivity">
 
     <com.example.qrazy.CustomHeader
-        android:id="@+id/header_qr_fragment"
+        android:id="@+id/header_user_leaderboard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -16,18 +16,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <SearchView
-        android:id="@+id/qr_leaderboard_searchview"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginTop="2dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header_qr_fragment" />
-
     <FrameLayout
-        android:id="@+id/qr_lead_list_con"
+        android:id="@+id/user_lead_frame"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
@@ -35,12 +25,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/qr_leaderboard_searchview">
-
-        <ListView
-            android:id="@+id/qr_leaderboard_list"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-    </FrameLayout>
+        app:layout_constraintTop_toBottomOf="@+id/header_user_leaderboard" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <com.example.qrazy.CustomHeader
-        android:id="@+id/header_qr_fragment"
+        android:id="@+id/header_user_leaderboard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
