@@ -3,17 +3,22 @@ package com.example.qrazy;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * UniqueUser is a class which represents a user of the app
+ * This class also currently contains information that will be stored in a database in the future
+ */
 public class UniqueUser implements Serializable {
     private String ID;
     private Player player;
     private String username;
-    private ArrayList<OwnerID> aUser = new ArrayList<OwnerID>();
-    private ArrayList<OwnerID> bUser =  new ArrayList<OwnerID>();
+    private ArrayList<OwnerID> aUser = new ArrayList<>();
+    private ArrayList<OwnerID> bUser = new ArrayList<>();
     public UniqueUser() {}
+
     /**
-     * constructor function for UniqueUser object
-     * @param ID
-     * @param player
+     * Constructor function for UniqueUser object
+     * @param ID player ID
+     * @param player player object
      */
     public UniqueUser(String ID, Player player) {
         this.ID = ID;
@@ -21,29 +26,17 @@ public class UniqueUser implements Serializable {
         this.aUser = new ArrayList<OwnerID>();
         this.bUser = new ArrayList<OwnerID>();
     }
-    /**
-     * get UniqueUser ID
-     * @return
-     * returns the UniqueUser ID
-     */
+
     public String getId() { return ID; }
 
     public void setID(String ID) {
         this.ID = ID;
     }
 
-    /**
-    * set the player of the uniqueuser
-    * @param player
-    */
     public void setPlayer(Player player) {
         this.player = player;
     }
-    /**
-     * get the player of the uniqueuser
-     * @return
-     *  returns a player object
-     */
+
     public Player getPlayer() {
         return this.player;
     }

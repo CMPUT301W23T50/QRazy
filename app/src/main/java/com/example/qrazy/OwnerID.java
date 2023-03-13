@@ -2,6 +2,9 @@ package com.example.qrazy;
 
 import java.util.ArrayList;
 
+/**
+ * OwnerID is a class representing the enitity that owns the infrastructure that the game runs on
+ */
 public class OwnerID {
     private String ownerID;
 

@@ -20,13 +20,11 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -40,6 +38,11 @@ import java.util.Date;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 
+/**
+ * ScanCodeActivity is an activity which allows users to view codes that they've scanned
+ * This activity takes the results of the scanner in MainActivity, and prompts the user to save
+ * an image of the QR code, as well as the geolocation
+ */
 public class ScanCodeActivity extends AppCompatActivity {
 
     private ImageCapture imageCapture;
@@ -53,6 +56,10 @@ public class ScanCodeActivity extends AppCompatActivity {
 
     // this is adapted from https://developer.android.com/training/permissions/requesting
     // isGranted is the result from asking user for permission (boolean)
+    /**
+     * This is adapted from https://developer.android.com/training/permissions/requesting, and is
+     * used to help with requesting & checking permissions granted by the user
+     */
     private final ActivityResultLauncher<String> requestPermission =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
                 this.permissionGranted = isGranted;
@@ -68,7 +75,7 @@ public class ScanCodeActivity extends AppCompatActivity {
         String last_act = getIntent().getStringExtra("activityName");
 
         // create the header
-        CustomHeader head = findViewById(R.id.header_qr_leaderboard);
+        CustomHeader head = findViewById(R.id.header_qr_fragment);
         head.initializeHead("Scanner", "Back to " + last_act);
         // set listener for back button in the header
         head.back_button.setOnClickListener(view -> {
@@ -117,6 +124,9 @@ public class ScanCodeActivity extends AppCompatActivity {
 
     /**
      * Function to take a picture with the device camera
+     * This function is actually not being used, since ZXing does much of the camera stuff for us
+     * Code was adapted in part from https://stackoverflow.com/a/63485232
+     * and from https://developer.android.com/training/camerax/take-photo
      */
     private void takePicture() {
         // get the image button
