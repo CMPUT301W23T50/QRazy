@@ -86,11 +86,12 @@ public class MainActivity extends AppCompatActivity{
                 // user didn't cancel scanning / adding a photo
                 this.scanResult = result.getContents();
 
-                // add qr code
-                QRCode qr = new QRCode(calculateHash(scanResult));
-                playerController.addQR(qr);
+                  // add qr code
+                  QRCode qr = new QRCode(calculateHash(scanResult));
+                  playerController.addQR(qr);
 
-                Toast.makeText(getBaseContext(), player.getQRArray().get(0).getHash(), Toast.LENGTH_LONG).show();
+                  Toast.makeText(getBaseContext(), player.getQRArray().get(0).getHash(), Toast.LENGTH_LONG).show();
+
             }
         }
     }
@@ -120,12 +121,17 @@ public class MainActivity extends AppCompatActivity{
                                     .setMediaType((ActivityResultContracts.PickVisualMedia.VisualMediaType)
                                             ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
                                     .build());
+                            Intent getImage = new Intent(Intent.ACTION_PICK);
+                            getImage.setDataAndType( android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                                    "image/*");
+                            startActivityForResult(getImage,2);
                         }
                     })
                     .show();
             // if user adds a qr code, go to the scan code activity
             if (scanResult != null) {
                 Intent intent = new Intent(view.getContext(), ScanCodeActivity.class);
+                intent.putExtra("activityName","home");
                 startActivity(intent);
             }
         });
@@ -140,10 +146,12 @@ public class MainActivity extends AppCompatActivity{
         // ignore the warning "Raw use of parameterized class 'Class'" since there's no other way
         // to implement this
         button.setOnClickListener(view -> {
+
             Intent intent = new Intent(this, activityClass);
             intent.putExtra("player", player);
             intent.putExtra("playerController", playerController);
-
+            intent.putExtra("activityName","home");
+    
             startActivity(intent);
         });
     }

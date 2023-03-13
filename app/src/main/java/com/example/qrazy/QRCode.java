@@ -1,5 +1,6 @@
 package com.example.qrazy;
 
+
 import android.util.Log;
 import android.util.Pair;
 
@@ -11,8 +12,10 @@ import java.util.regex.Matcher;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
+
 /**
  * Class to represent qr codes
+ * Implements Serializable so that a QRCode can be passed between activities with intent.setExtra
  */
 public class QRCode implements Serializable {
     //TODO<- Controller for comments and db connectivity
@@ -84,4 +87,5 @@ public class QRCode implements Serializable {
     private void setVisualRep(String visualRep) {
         this.visualRep = visualRep;
     }
+
 }

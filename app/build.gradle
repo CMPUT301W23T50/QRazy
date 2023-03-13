@@ -34,6 +34,7 @@ android {
 
 }
 
+
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
@@ -62,9 +63,19 @@ dependencies {
     implementation "androidx.camera:camera-view:${camerax_version}"
     implementation "androidx.camera:camera-extensions:${camerax_version}"
 
+    // for hashing
+    implementation 'commons-codec:commons-codec:1.15'
+
     // ZXing library allows for scanning codes
     implementation "com.journeyapps:zxing-android-embedded:4.1.0"
 
+
+    // open street maps api
+    implementation 'org.osmdroid:osmdroid-android:6.1.14'
+    
+
     // for hashing
     implementation 'commons-codec:commons-codec:1.15'
+
+
 }
