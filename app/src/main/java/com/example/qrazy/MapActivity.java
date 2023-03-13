@@ -30,6 +30,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * MapActivity is an activity which displays a map, containing markers for QR code locations
+ * This activity implements OpenStreetMaps instead of Google Maps
+ * Much of the code in this class was adapted from the OpenStreetMaps tutorial, link is
+ * https://github.com/osmdroid/osmdroid/wiki/How-to-use-the-osmdroid-library-(Java)
+ */
 public class MapActivity extends AppCompatActivity {
 
     private MapView map = null;
@@ -53,7 +59,7 @@ public class MapActivity extends AppCompatActivity {
         String last_act = getIntent().getStringExtra("activityName");
 
         // create the header
-        CustomHeader head = findViewById(R.id.header_qr_leaderboard);
+        CustomHeader head = findViewById(R.id.header_qr_fragment);
         head.initializeHead("Map", "Back to " + last_act);
         // set listener for back button in the header
         // TODO: button needs to be clicked multiple times to work, need to fix that
@@ -173,8 +179,9 @@ public class MapActivity extends AppCompatActivity {
 
     /**
      * Function to take users to the qr code leaderboard from map markers
-     *
-     * @param qrCode QRCode to see leaderboard for
+     * @param qrCode QRCode that the user clicked on, gets passed to the next activity, where the
+     *               user can see the QRCode and a leaderboard
+     * @param activityClass the activity which will be started
      */
     private void switchActivityOnHold(QRCode qrCode, Class activityClass) {
         // before opening page, ask the user if they want to go to page

@@ -21,10 +21,13 @@ public class QRCode implements Serializable {
     //TODO<- Controller for comments and db connectivity
     private String hash;
     private String name;
-    private int score;
+
+    private int score = 0;
+    // initializing to default values, so we don't have to check if the location contains null
+    private Pair<Double, Double> location = new Pair<Double, Double>(0.0,0.0);  // <longitude, latitude>
     private String visualRep;
-    private Pair<Double, Double> location;  // <longitude, latitude>
     private HashMap<String, String> comments = new HashMap<>();  // <userID, comment>
+
 
     public QRCode(String hash) {
         this.hash = hash;
@@ -32,7 +35,39 @@ public class QRCode implements Serializable {
         this.visualRep = generateVisualRep();
     }
 
+
+    protected QRCode(Parcel in) {
+        this.content = in.readString();
+    }
+
+    public static final Creator<QRCode> CREATOR = new Creator<QRCode>() {
+        @Override
+        public QRCode createFromParcel(Parcel in) {
+            return new QRCode(in);
+        }
+
+        @Override
+        public QRCode[] newArray(int size) {
+            return new QRCode[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int number) {
+        parcel.writeString(content);
+    }
+
+    /**
+     * Function to calculate the score of this QR code
+     * @return the score of this instance of a QR code
+     */
     public int calculateScore() {
+
         int score = 0;
         // regex global search for substrings of repeating chars AND all zeroes
         Pattern repeat = Pattern.compile("(.)(\\1+)|(0)");
@@ -84,8 +119,14 @@ public class QRCode implements Serializable {
     public void setScore(int score) {
         this.score = score;
     }
+
+    public String getName() { return name; }
+    public Pair<Double, Double> getLocation() { return location; }
+    public String getContent() { return content; }
+
     private void setVisualRep(String visualRep) {
         this.visualRep = visualRep;
     }
+
 
 }
