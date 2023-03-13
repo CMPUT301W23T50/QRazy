@@ -2,8 +2,8 @@
 plugins {
     // switched both versions to 7.3.1 because other versions were causing compatibility issues
     // might be a local issue
-    id 'com.android.application' version '7.3.1' apply false
-    id 'com.android.library' version '7.3.1' apply false
+    id 'com.android.application' version '7.4.2' apply false
+    id 'com.android.library' version '7.4.2' apply false
     // added this
     id 'org.jetbrains.kotlin.android' version '1.8.10' apply false
 }

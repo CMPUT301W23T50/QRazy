@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,8 +19,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentIntegrator;Ryan
 import com.google.zxing.integration.android.IntentResult;
+import org.apache.commons.codec.digest.DigestUtils;
+
 
 /**
  * MainActivity is an activity which is the opening screen to the app (not including the login
@@ -30,10 +33,15 @@ import com.google.zxing.integration.android.IntentResult;
  * TODO: move ZXing to a fragment, so that it can be used outside of MainActivity
  */
 public class MainActivity extends AppCompatActivity{
+     Player player = new Player("User#12345", "s8765");
+     PlayerController playerController = new PlayerController(player);
 
     // result from qr scan
     private String scanResult;
 
+    public String calculateHash(String content) {
+        return DigestUtils.sha256Hex(content);
+    }
     ActivityResultLauncher<PickVisualMediaRequest> pickImage =
             registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
                 if (uri != null) {
@@ -85,6 +93,13 @@ public class MainActivity extends AppCompatActivity{
             if (result.getContents() != null) {
                 // user didn't cancel scanning / adding a photo
                 this.scanResult = result.getContents();
+
+                  // add qr code
+                  QRCode qr = new QRCode(calculateHash(scanResult));
+                  playerController.addQR(qr);
+
+                  Toast.makeText(getBaseContext(), player.getQRArray().get(0).getHash(), Toast.LENGTH_LONG).show();
+
             }
         }
     }
@@ -139,8 +154,12 @@ public class MainActivity extends AppCompatActivity{
         // ignore the warning "Raw use of parameterized class 'Class'" since there's no other way
         // to implement this
         button.setOnClickListener(view -> {
-            Intent intent = new Intent(view.getContext(), activityClass);
+
+            Intent intent = new Intent(this, activityClass);
+            intent.putExtra("player", player);
+            intent.putExtra("playerController", playerController);
             intent.putExtra("activityName","home");
+    
             startActivity(intent);
         });
     }

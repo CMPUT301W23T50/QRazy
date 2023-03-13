@@ -32,6 +32,8 @@ import com.google.common.util.concurrent.ListenableFuture;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import java.util.Date;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
