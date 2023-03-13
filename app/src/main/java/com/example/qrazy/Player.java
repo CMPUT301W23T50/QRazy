@@ -3,6 +3,9 @@ package com.example.qrazy;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Class to represent Player
+ */
 public class Player implements Serializable {
     private String username;
     private String deviceInfo;
@@ -15,10 +18,16 @@ public class Player implements Serializable {
     // not needed for halfway:
     // private *Image* pfp;
     // don't know what the img is stored as
+
+    //constructor
     public Player(String username, String deviceInfo) {
         this.username = username;
         this.deviceInfo = deviceInfo;
     }
+
+    /** Get the total number of qr codes scanned
+     * @return int size of QRArray
+     */
     public int getNumScanned() {return QRArray.size();}
 
     //getters

@@ -68,10 +68,22 @@
         app:srcCompat="@drawable/ic_launcher_foreground"
         tools:srcCompat="@drawable/ic_launcher_foreground" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/grey"
+        app:layout_constraintBottom_toTopOf="@+id/qr_recycler"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scanned"
+        app:layout_constraintVertical_bias="1.0" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/qr_recycler"
-        android:layout_width="380dp"
-        android:layout_height="510dp"
+        android:layout_width="410dp"
+        android:layout_height="487dp"
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
