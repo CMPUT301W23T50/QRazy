@@ -21,9 +21,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -35,7 +35,6 @@ import com.google.zxing.integration.android.IntentResult;
 import java.util.Date;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class ScanCodeActivity extends AppCompatActivity {
 
@@ -61,6 +60,18 @@ public class ScanCodeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_code);
         this.activity = this;
+
+        // get the arguments passed by the intent
+        String last_act = getIntent().getStringExtra("activityName");
+
+        // create the header
+        CustomHeader head = findViewById(R.id.header_qr_leaderboard);
+        head.initializeHead("Map", "Back to " + last_act);
+        // set listener for back button in the header
+        head.back_button.setOnClickListener(view -> {
+            Log.d("Back button","Back button clicked");
+            finish();
+        });
 
         // back button
         ImageButton backButton = findViewById(R.id.back_button);
