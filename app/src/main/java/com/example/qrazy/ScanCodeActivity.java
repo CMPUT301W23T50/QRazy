@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.camera.core.Camera;
 import androidx.camera.core.CameraControl;
@@ -19,6 +20,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -51,7 +53,6 @@ public class ScanCodeActivity extends AppCompatActivity {
     // isGranted is the result from asking user for permission (boolean)
     private final ActivityResultLauncher<String> requestPermission =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
-                // do something here
                 this.permissionGranted = isGranted;
             });
 
@@ -66,18 +67,16 @@ public class ScanCodeActivity extends AppCompatActivity {
 
         // create the header
         CustomHeader head = findViewById(R.id.header_qr_leaderboard);
-        head.initializeHead("Map", "Back to " + last_act);
+        head.initializeHead("Scanner", "Back to " + last_act);
         // set listener for back button in the header
         head.back_button.setOnClickListener(view -> {
             Log.d("Back button","Back button clicked");
             finish();
         });
 
-        // back button
-        ImageButton backButton = findViewById(R.id.back_button);
-
-        // set back button to return to main activity
-        backButton.setOnClickListener(view -> finish());
+        // ask user if they want to save the photo
+        boolean saveImage = askUserPerms("Save image?");
+        boolean saveGeolocation = askUserPerms("Save geolocation?");
 
     }
 
@@ -98,6 +97,20 @@ public class ScanCodeActivity extends AppCompatActivity {
 
         Toast.makeText(getBaseContext(),result.getContents(),Toast.LENGTH_LONG).show();
         this.scanResult = result.getContents();
+    }
+
+    /**
+     * Function to create Alert Dialogs asking the user if they want to save image and geolocation
+     * @param message the message to be displayed in the alert dialog
+     */
+    private boolean askUserPerms(String message) {
+        final boolean[] userPerm = new boolean[1];
+        new AlertDialog.Builder(ScanCodeActivity.this)
+                .setMessage(message)
+                .setPositiveButton("Yes", (dialogInterface, i) -> userPerm[0] = true)
+                .setNegativeButton("No", (dialogInterface, i) -> userPerm[0] = false)
+                .show();
+        return userPerm[0];
     }
 
     /**

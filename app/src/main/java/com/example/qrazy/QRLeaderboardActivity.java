@@ -18,11 +18,11 @@ public class QRLeaderboardActivity extends AppCompatActivity {
         // since this is a leaderboard for a single qr code, we want to save the code
         // code is passed to this activity from the intent, which we can get
         this.qrcode = (QRCode) getIntent().getParcelableExtra("QRCode");
-        this.last_activity_name = getIntent().getStringExtra("prevActivity");
+        String last_act = getIntent().getStringExtra("prevActivity");
 
         // create the header
         CustomHeader head = findViewById(R.id.header_qr_leaderboard);
-        head.initializeHead("Map", "Back to " + last_activity_name);
+        head.initializeHead("QR Leaderboard", "Back to " + last_act);
         // set listener for back button in the header
         head.back_button.setOnClickListener(view -> {
             Log.d("Back button","Back button clicked");

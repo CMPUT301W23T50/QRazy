@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity{
         // this allows user to either scan a code or add from gallery
         addCode(scanQRButton);
 
-
         // switch to map activity on button press
         switchToActivity(mapButton, MapActivity.class);
 
@@ -107,6 +106,10 @@ public class MainActivity extends AppCompatActivity{
                                     .setMediaType((ActivityResultContracts.PickVisualMedia.VisualMediaType)
                                             ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
                                     .build());
+                            Intent getImage = new Intent(Intent.ACTION_PICK);
+                            getImage.setDataAndType( android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                                    "image/*");
+                            startActivityForResult(getImage,2);
                         }
                     })
                     .show();
