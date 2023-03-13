@@ -1,81 +1,91 @@
 package com.example.qrazy;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+
+import android.util.Log;
 import android.util.Pair;
 
+import java.io.Serializable;
 import java.util.HashMap;
-import java.util.regex.Matcher;
+
 import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
+import org.apache.commons.codec.digest.DigestUtils;
+
 
 /**
  * Class to represent qr codes
- * Implements Parcelable so that a QRCode can be passed between activities with intent.setExtra
+ * Implements Serializable so that a QRCode can be passed between activities with intent.setExtra
  */
-public class QRCode implements Parcelable {
-
-    private String content;
+public class QRCode implements Serializable {
+    //TODO<- Controller for comments and db connectivity
+    private String hash;
     private String name;
     private int score;
+    private String visualRep;
     private Pair<Double, Double> location;  // <longitude, latitude>
-    private HashMap<String, String> comments;  // <userID, comment>
+    private HashMap<String, String> comments = new HashMap<>();  // <userID, comment>
 
-    public QRCode(String content) {
-        this.content = content;
+    public QRCode(String hash) {
+        this.hash = hash;
+        this.score = calculateScore();
+        this.visualRep = generateVisualRep();
     }
 
-    protected QRCode(Parcel in) {
-        this.content = in.readString();
-    }
-
-    public static final Creator<QRCode> CREATOR = new Creator<QRCode>() {
-        @Override
-        public QRCode createFromParcel(Parcel in) {
-            return new QRCode(in);
-        }
-
-        @Override
-        public QRCode[] newArray(int size) {
-            return new QRCode[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int number) {
-        parcel.writeString(content);
-    }
-
-    public int updateScore() {
-
+    public int calculateScore() {
         int score = 0;
-        String hash = getHash();
-        // regex global search for substrings of repeating chars
-        Pattern repeat = Pattern.compile("(.)(\\1+)");
+        // regex global search for substrings of repeating chars AND all zeroes
+        Pattern repeat = Pattern.compile("(.)(\\1+)|(0)");
         Matcher matcher = repeat.matcher(hash);
         while(matcher.find()) {
             String match = matcher.group();
-            // TODO <- map hex value to decimal; 0 to 20
-            int char_val = 10;
-            score += Math.pow(char_val,(match.length()-1));
+            // determine val
+            char ch = match.charAt(0);
+            int charVal;
+            if (ch == '0') {
+                if (match.length() == 1) {
+                    // non repeating zero
+                    score+=1;
+                    continue;
+                }
+                else {charVal = 20;}
+            }
+            else if (Character.isDigit(ch)) {
+                // 0-9 ascii vals are in order
+                charVal = ch-'0';
+            }
+            else {
+                // a-z ascii vals are in order
+                // +10 for hex->dec (a=10)
+                charVal = ch-'a'+10;
+            }
+            score += Math.pow(charVal,(match.length()-1));
         }
-        // update and ret
-        this.score = score;
         return score;
     }
 
-    public String getHash() {
-        return org.apache.commons.codec.digest.DigestUtils.sha256Hex(content);
+    public String generateVisualRep() {
+        // for the unique visual representation
+        // TODO: implement after halfway
+        return "";
     }
 
+    // getters
+    public String getHash() {
+        return hash;
+    }
     public int getScore() {
         return score;
     }
+    public String getVisualRep() {
+        return visualRep;
+    }
+    // setters
     public void setScore(int score) {
         this.score = score;
     }
+    private void setVisualRep(String visualRep) {
+        this.visualRep = visualRep;
+    }
+
 }
