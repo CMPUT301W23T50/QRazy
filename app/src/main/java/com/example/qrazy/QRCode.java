@@ -20,12 +20,16 @@ public class QRCode implements Serializable {
     //TODO<- Controller for comments and db connectivity
     private String hash;
     private String name;
-    private int score;
+
+    private int score = 0;
+    // initializing to default values, so we don't have to check if the location contains null
+    private Pair<Double, Double> location = new Pair<Double, Double>(0.0,0.0);  // <longitude, latitude>
     private String visualRep;
-    private Pair<Double, Double> location;  // <longitude, latitude>
     private HashMap<String, String> comments = new HashMap<>();  // <userID, comment>
 
+
     // constructor
+
     public QRCode(String hash) {
         this.hash = hash;
         this.score = calculateScore();
@@ -36,6 +40,7 @@ public class QRCode implements Serializable {
      * @return score int
      */
     public int calculateScore() {
+
         int score = 0;
         // regex global search to get substrs of repeating chars AND all zeroes
         Pattern repeat = Pattern.compile("(.)(\\1+)|(0)");
@@ -90,8 +95,14 @@ public class QRCode implements Serializable {
     public void setScore(int score) {
         this.score = score;
     }
+
+    public String getName() { return name; }
+    public Pair<Double, Double> getLocation() { return location; }
+    public String getContent() { return content; }
+
     private void setVisualRep(String visualRep) {
         this.visualRep = visualRep;
     }
+
 
 }
