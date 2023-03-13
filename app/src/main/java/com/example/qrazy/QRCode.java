@@ -15,7 +15,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  * Class to represent qr codes
- * Implements Serializable so that a QRCode can be passed between activities with intent.setExtra
  */
 public class QRCode implements Serializable {
     //TODO<- Controller for comments and db connectivity
@@ -26,15 +25,19 @@ public class QRCode implements Serializable {
     private Pair<Double, Double> location;  // <longitude, latitude>
     private HashMap<String, String> comments = new HashMap<>();  // <userID, comment>
 
+    // constructor
     public QRCode(String hash) {
         this.hash = hash;
         this.score = calculateScore();
         this.visualRep = generateVisualRep();
     }
 
+    /** Calculates the score from the hash value
+     * @return score int
+     */
     public int calculateScore() {
         int score = 0;
-        // regex global search for substrings of repeating chars AND all zeroes
+        // regex global search to get substrs of repeating chars AND all zeroes
         Pattern repeat = Pattern.compile("(.)(\\1+)|(0)");
         Matcher matcher = repeat.matcher(hash);
         while(matcher.find()) {
@@ -64,6 +67,9 @@ public class QRCode implements Serializable {
         return score;
     }
 
+    /** Generate a unique visual representation of the qr code
+     * @return String representation of qr as a string
+     */
     public String generateVisualRep() {
         // for the unique visual representation
         // TODO: implement after halfway
