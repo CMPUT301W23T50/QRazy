@@ -1,6 +1,7 @@
 package com.example.qrazy;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,16 +16,22 @@ import java.util.ArrayList;
  * Adapter used for the QR Leaderboard
  * Can't use QR adapter since it requires a PlayerController
  */
-public class QRLeaderboardAdapter extends RecyclerView.Adapter<QRViewHolder> {
+public class QRLeaderboardAdapter extends RecyclerView.Adapter<QRViewHolder>
+        implements QRViewHolder.QRViewHolderClicks {
 
     private Context context;
-    private LayoutInflater inflater;
     private ArrayList<QRCode> qrCodes;
+
+    private QRViewHolder.QRViewHolderClicks clickListener;
 
     public QRLeaderboardAdapter(Context context, ArrayList<QRCode> qrCodes) {
         this.context = context;
-        this.inflater = LayoutInflater.from(context);
+        LayoutInflater inflater = LayoutInflater.from(context);
         this.qrCodes = qrCodes;
+    }
+
+    public void setClickListener(QRViewHolder.QRViewHolderClicks listener) {
+        clickListener = listener;
     }
 
     @NonNull
@@ -33,13 +40,11 @@ public class QRLeaderboardAdapter extends RecyclerView.Adapter<QRViewHolder> {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.qr_leaderboard_content,parent,false);
 
-        QRViewHolder viewHolder = new QRViewHolder(view, new QRViewHolder.QRViewHolderClicks() {
-            public void onItemClick(View view1) {
-                // implement interface method here
-            }
-        });
+        // set click listener for recycler view elements
+        // this sets it for each element individually
+        view.setOnClickListener((View.OnClickListener) clickListener);
 
-        return viewHolder;
+        return new QRViewHolder(view,clickListener,this.context);
     }
 
     @Override
@@ -59,5 +64,10 @@ public class QRLeaderboardAdapter extends RecyclerView.Adapter<QRViewHolder> {
     public void filter(ArrayList<QRCode> qrCodes1) {
         qrCodes = qrCodes1;
         notifyDataSetChanged();
+    }
+
+    @Override
+    public void onItemClick(View view) {
+        Log.d(view.toString(),"Clicked!");
     }
 }

@@ -1,12 +1,15 @@
 package com.example.qrazy;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
@@ -26,7 +29,6 @@ public class SearchViewFragment extends Fragment {
 
     private ArrayList<QRCode> arrayList;
     private ArrayList<Player> playerList;
-    private RecyclerView recyclerView;
     private QRLeaderboardAdapter qrLeaderboardAdapter;
     private UserLeaderboardAdapter userLeaderboardAdapter;
 
@@ -73,31 +75,36 @@ public class SearchViewFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_search_view, container, false);
 
-        recyclerView = view.findViewById(R.id.searchview_frag_recycler);
+        RecyclerView recyclerView = view.findViewById(R.id.searchview_frag_recycler);
         // create a layout manager to deal with the recycler view
         LinearLayoutManager manager = new LinearLayoutManager(this.getContext());
         // set values for recycler view
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(manager);
 
+        // these if else statements make sure that we're using the write ArrayList<> type and
+        // make sure that arguments are passed to this fragment from an activity
+        // inside the if else statements, we then call functions based on the class of objects
         if (getArguments() != null) {
+            // check if bundle has a ArrayList<QRCode>
             if (getArguments().containsKey(QR_LIST_ARG)) {
                 this.arrayList = getArguments().getParcelableArrayList(QR_LIST_ARG);
                 // get a leaderboard adapter
                 qrLeaderboardAdapter = new QRLeaderboardAdapter(this.getContext(),arrayList);
                 recyclerView.setAdapter(qrLeaderboardAdapter);
+                // call search items to allow user to search the recycler view
+                searchItems(view);
 
+            // check if bundle has an ArrayList<Player>
             } else if (getArguments().containsKey(PLAYER_LIST_ARG)) {
 
                 this.playerList = getArguments().getParcelableArrayList(PLAYER_LIST_ARG);
                 userLeaderboardAdapter = new UserLeaderboardAdapter(this.getContext(),playerList);
                 recyclerView.setAdapter(userLeaderboardAdapter);
+                // call search items to allow user to search the recycler view
+                searchItems(view);
+
             }
-
-            // call search items to allow user to search the recycler view
-            searchItems(view);
-
-
         } else {
             this.arrayList = new ArrayList<>();
         }
@@ -139,6 +146,7 @@ public class SearchViewFragment extends Fragment {
     public void filterText(String text) {
 
         // check if we're looking at qr codes or user names
+        assert getArguments() != null;
         if (getArguments().containsKey(QR_LIST_ARG)) {
             ArrayList<QRCode> filtered = new ArrayList<>();
 
@@ -162,5 +170,4 @@ public class SearchViewFragment extends Fragment {
             userLeaderboardAdapter.filter(filtered);
         }
     }
-
 }

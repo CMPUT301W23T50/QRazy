@@ -163,4 +163,17 @@ public class MainActivity extends AppCompatActivity{
             startActivity(intent);
         });
     }
+
+    /**
+     * Function to add dummy QR codes to the user profile
+     */
+    private void addDummyQR() {
+        QRCode fakeqr1 = new QRCode("12489");
+        QRCode fakeqr2 = new QRCode("832745");
+        fakeqr1.setName("PlayerQR1");
+        fakeqr2.setName("FakeQRCode");
+        playerController.addQR(fakeqr1);
+        playerController.addQR(fakeqr2);
+    }
+
 }

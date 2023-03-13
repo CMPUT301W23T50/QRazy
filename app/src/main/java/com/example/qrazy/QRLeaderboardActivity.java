@@ -12,6 +12,7 @@ public class QRLeaderboardActivity extends AppCompatActivity {
 
     private QRCode qrcode;
     private QRLeaderboardAdapter adapter;
+    private PlayerController playerController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +21,8 @@ public class QRLeaderboardActivity extends AppCompatActivity {
 
         // since this is a leaderboard for a single qr code, we want to save the code
         // code is passed to this activity from the intent, which we can get
-        this.qrcode = (QRCode) getIntent().getParcelableExtra("QRCode");
+        qrcode = (QRCode) getIntent().getParcelableExtra("QRCode");
+        playerController = getIntent().getParcelableExtra("playerController");
         String last_act = getIntent().getStringExtra("prevActivity");
 
         // create the header
@@ -30,13 +32,14 @@ public class QRLeaderboardActivity extends AppCompatActivity {
         head.back_button.setOnClickListener(view -> { finish(); });
 
         // adding fake qr codes to a list, for the sake of showing that it works
-        QRCode testCode1 = new QRCode("Content");
-        QRCode testCode2 = new QRCode("More content");
-        testCode1.setName("Test1");
-        testCode2.setName("Test2");
+        QRCode testCode1 = new QRCode("TestCode");
+        QRCode testCode2 = new QRCode("AnotherTestQR");
+        testCode1.setName("TestCode");
+        testCode2.setName("OtherCode");
         ArrayList<QRCode> qr_array_list = new ArrayList<>();
         qr_array_list.add(testCode1);
         qr_array_list.add(testCode2);
+        qr_array_list.addAll(playerController.getPlayer().getQRArray());
 
         // since we have a SearchViewFragment, we want to show that as the search + recycler view
         // functionality
