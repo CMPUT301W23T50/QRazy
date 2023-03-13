@@ -45,8 +45,10 @@ public class QRLeaderboardAdapter extends RecyclerView.Adapter<QRViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull QRViewHolder holder, int position) {
         QRCode qrCode = qrCodes.get(position);
-        TextView qr_name = holder.itemView.findViewById(R.id.user_name);
+        TextView qr_name = holder.itemView.findViewById(R.id.qr_name);
+        TextView qr_score = holder.itemView.findViewById(R.id.score_text_qrlead);
         qr_name.setText(qrCode.getHash());
+        qr_score.setText(String.valueOf(qrCode.getScore()));
     }
 
     @Override

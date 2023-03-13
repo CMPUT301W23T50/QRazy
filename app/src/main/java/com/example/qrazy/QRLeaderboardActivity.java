@@ -24,13 +24,10 @@ public class QRLeaderboardActivity extends AppCompatActivity {
         String last_act = getIntent().getStringExtra("prevActivity");
 
         // create the header
-        CustomHeader head = findViewById(R.id.header_user_leaderboard);
+        CustomHeader head = findViewById(R.id.header_qr_leaderboard);
         head.initializeHead("QR Leaderboard", "Back to " + last_act);
         // set listener for back button in the header
-        head.back_button.setOnClickListener(view -> {
-            Log.d("Back button","Back button clicked");
-            finish();
-        });
+        head.back_button.setOnClickListener(view -> { finish(); });
 
         // adding fake qr codes to a list, for the sake of showing that it works
         QRCode testCode1 = new QRCode("Content");
@@ -41,17 +38,12 @@ public class QRLeaderboardActivity extends AppCompatActivity {
         qr_array_list.add(testCode1);
         qr_array_list.add(testCode2);
 
-
-        // make array adapter for the ArrayList of QR codes
-        ArrayAdapter<QRCode> qr_adapter = new ArrayAdapter<>(this,
-                R.layout.qr_leaderboard_content,R.id.user_name,qr_array_list);
-
         // since we have a SearchViewFragment, we want to show that as the search + recycler view
         // functionality
         SearchViewFragment searchFrag = SearchViewFragment.newInstanceQR(qr_array_list);
         androidx.fragment.app.FragmentManager fragMan = getSupportFragmentManager();
         androidx.fragment.app.FragmentTransaction fragTrans = fragMan.beginTransaction();
-        fragTrans.replace(R.id.user_lead_frame,searchFrag,"SearchFrag");
+        fragTrans.replace(R.id.qr_lead_frame,searchFrag,"SearchFrag");
         fragTrans.commit();
 
     }

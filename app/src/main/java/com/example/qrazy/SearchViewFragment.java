@@ -57,7 +57,7 @@ public class SearchViewFragment extends Fragment {
     public static SearchViewFragment newInstancePlayer(ArrayList<Player> playerList) {
         SearchViewFragment fragment = new SearchViewFragment();
         Bundle args = new Bundle();
-        args.putSerializable(PLAYER_LIST_ARG, playerList);
+        args.putParcelableArrayList(PLAYER_LIST_ARG, playerList);
         fragment.setArguments(args);
         return fragment;
     }
@@ -89,7 +89,7 @@ public class SearchViewFragment extends Fragment {
 
             } else if (getArguments().containsKey(PLAYER_LIST_ARG)) {
 
-                this.playerList = (ArrayList<Player>) getArguments().getSerializable(PLAYER_LIST_ARG);
+                this.playerList = getArguments().getParcelableArrayList(PLAYER_LIST_ARG);
                 userLeaderboardAdapter = new UserLeaderboardAdapter(this.getContext(),playerList);
                 recyclerView.setAdapter(userLeaderboardAdapter);
             }
@@ -138,6 +138,7 @@ public class SearchViewFragment extends Fragment {
      */
     public void filterText(String text) {
 
+        // check if we're looking at qr codes or user names
         if (getArguments().containsKey(QR_LIST_ARG)) {
             ArrayList<QRCode> filtered = new ArrayList<>();
 
@@ -160,9 +161,6 @@ public class SearchViewFragment extends Fragment {
             }
             userLeaderboardAdapter.filter(filtered);
         }
-
-
-
     }
 
 }

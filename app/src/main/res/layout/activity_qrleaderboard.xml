@@ -8,7 +8,7 @@
     tools:context=".QRLeaderboardActivity">
 
     <com.example.qrazy.CustomHeader
-        android:id="@+id/header_user_leaderboard"
+        android:id="@+id/header_qr_leaderboard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
-        android:id="@+id/user_lead_frame"
+        android:id="@+id/qr_lead_frame"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
@@ -25,6 +25,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header_user_leaderboard" />
+        app:layout_constraintTop_toBottomOf="@+id/header_qr_leaderboard" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
